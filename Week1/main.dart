@@ -109,6 +109,40 @@ void main() {
     default:
       print('its default');
   }
+
+  //Simple For Loop
+  for (var i = 1; i <= 10; i++) {
+    print('we are in the simple for loop with count : $i');
+  }
+
+  //For-In Loop
+  var arr = [1, 2, 3, 4, 5, 6, 7];
+  for (var element in arr) {
+    print('We are in FOR_IN loop with count of : $element');
+  }
+
+  //For-Each Loop
+
+  arr.forEach((element) {
+    print('we are in for each loop $element');
+  });
+
+  //while loop
+  int i = 1;
+  while (count1 > 0) {
+    print('While loop my hay apun  : $i');
+    i++;
+    count1 -= 10;
+  }
+  i = 1;
+  count1 = 100;
+
+  //Do While
+  do {
+    print('Do-While loop my hay apun  : $i');
+    i++;
+    count1 -= 10;
+  } while (count1 > 0);
 }
 //In-Line Comment
 
