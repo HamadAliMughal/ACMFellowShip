@@ -110,6 +110,9 @@ class RoadMapScreen extends StatelessWidget {
               ),
               SizedBox(height: 20),
               CounterWidget(), // Stateful Counter widget
+              SizedBox(height: 40),
+              Image.asset('assets/img.jpeg'),
+              Text('This is an image'),
               SizedBox(height: 20),
               ListView.builder(
                 shrinkWrap: true,
