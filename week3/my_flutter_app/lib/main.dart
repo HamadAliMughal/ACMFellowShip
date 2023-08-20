@@ -1,126 +1,118 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(RoadMapApp());
+  runApp(MyApp());
 }
 
-class RoadMapApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: RoadMapScreen(),
+      theme: ThemeData(
+        primaryColor: Colors.red,
+      ),
+      home: WidgetPlaygroundScreen(),
     );
   }
 }
 
-class RoadMapScreen extends StatelessWidget {
+class WidgetPlaygroundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Road Map of Video'),
+        title: const Text('Week 03'),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: 8,
+                itemBuilder: (context, index) {
+                  index++;
+                  return ListTile(title: Text('List Item $index'));
+                },
+              ),
               Container(
-                color: Colors.blue,
+                color: Colors.green,
                 height: 100,
-                child: Center(
+                child: const Center(
                   child: Text(
-                    'Container Widget',
+                    'Custom Container',
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              const SizedBox(height: 20),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.star),
-                  Icon(Icons.star),
+                  Icon(Icons.alarm),
+                  Icon(Icons.mood_bad),
+                  Icon(Icons.sim_card_alert_sharp),
+                  Icon(Icons.mood_sharp),
                   Icon(Icons.star),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Container(color: Colors.green, height: 50),
+                    child: Container(color: Colors.blueGrey, height: 50),
                   ),
                   Expanded(
                     flex: 1,
-                    child: Container(color: Colors.red, height: 50),
+                    child: Container(color: Colors.yellow, height: 50),
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(color: Colors.orange, height: 100, width: 100),
-                  Icon(Icons.layers, size: 50),
-                ],
-              ),
-              SizedBox(height: 20),
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.blue,
-                child: Text(
-                  'C',
-                  style: TextStyle(color: Colors.white, fontSize: 40),
-                ),
-              ),
-              SizedBox(height: 20),
-              Divider(
+              const SizedBox(height: 20),
+              const Divider(
                 color: Colors.grey,
                 thickness: 2,
               ),
-              SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                  children: [
-                    TextSpan(text: 'Rich'),
-                    TextSpan(
-                      text: 'Text',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(text: ' Widget'),
-                  ],
+              const SizedBox(height: 20),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(color: Colors.blue, height: 100, width: 100),
+                  const Icon(Icons.layers, size: 50),
+             
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Divider(
+                color: Colors.grey,
+                thickness: 2,
+              ),
+              const SizedBox(height: 20),
+              const CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.pink,
+                child: Text(
+                  'H',
+                  style: TextStyle(color: Colors.white, fontSize: 40),
                 ),
               ),
-              SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Enter Text',
-                  border: OutlineInputBorder(),
-                ),
+              const SizedBox(height: 20),
+              const Divider(
+                color: Colors.grey,
+                thickness: 2,
               ),
-              SizedBox(height: 20),
-              ListTile(
-                leading: Icon(Icons.account_circle),
-                title: Text('List Tile Widget'),
-                subtitle: Text('Subtitle'),
-                trailing: Icon(Icons.arrow_forward),
-              ),
-              SizedBox(height: 20),
-              CounterWidget(), // Stateful Counter widget
-              SizedBox(height: 40),
-              Image.asset('assets/img.jpeg'),
-              Text('This is an image'),
-              SizedBox(height: 20),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return ListTile(title: Text('Item $index'));
-                },
-              ),
+              const SizedBox(height: 20),
+              TextEditor(),
+              const SizedBox(height: 20),
+              Image.asset('assets/image.jpg'),
+              const SizedBox(height: 20),
+              CounterIncrementer(),
+              const SizedBox(height: 20),
+
             ],
           ),
         ),
@@ -129,12 +121,60 @@ class RoadMapScreen extends StatelessWidget {
   }
 }
 
-class CounterWidget extends StatefulWidget {
+class TextEditor extends StatefulWidget {
+  const TextEditor({super.key});
+
   @override
-  _CounterWidgetState createState() => _CounterWidgetState();
+  // ignore: library_private_types_in_public_api
+  _TextEditorState createState() {
+    return _TextEditorState();
+  }
 }
 
-class _CounterWidgetState extends State<CounterWidget> {
+class _TextEditorState extends State<TextEditor> {
+  String _inputText = '';
+
+  void _updateText(String newText) {
+    setState(() {
+      _inputText = newText;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextField(
+          onChanged: _updateText,
+          decoration: const InputDecoration(
+            labelText: 'Enter Text',
+            border: OutlineInputBorder(),
+          ),
+        ),
+        const SizedBox(height: 10),
+        RichText(
+          text: TextSpan(
+            style: const TextStyle(fontSize: 18, color: Colors.black),
+            children: [
+              const TextSpan(text: 'Input Text: '),
+              TextSpan(
+                text: _inputText,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class CounterIncrementer extends StatefulWidget {
+  @override
+  _CounterIncrementerState createState() => _CounterIncrementerState();
+}
+
+class _CounterIncrementerState extends State<CounterIncrementer> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -149,17 +189,15 @@ class _CounterWidgetState extends State<CounterWidget> {
       children: [
         Text(
           'Counter Value: $_counter',
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         ),
-        SizedBox(height: 10),
-        ElevatedButton(
+        const SizedBox(height: 10),
+        FloatingActionButton(
           onPressed: _incrementCounter,
-          child: Text('Increment Counter'),
+          child: const Icon(Icons.plus_one),
         ),
       ],
     );
   }
 }
-
-// Run the app
 
